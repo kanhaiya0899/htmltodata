@@ -7,4 +7,7 @@ export class htmltodataWeb extends WebPlugin implements htmltodataPlugin {
     console.log('ECHO', options);
     return options;
   }
+  async htmlstringToBase64(options: { value: string }): Promise<{ value: string }> {
+    return options;
+  }
 }

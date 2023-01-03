@@ -14,6 +14,7 @@ npx cap sync
 <docgen-index>
 
 * [`echo(...)`](#echo)
+* [`htmlstringToBase64(...)`](#htmlstringtobase64)
 
 </docgen-index>
 
@@ -24,6 +25,21 @@ npx cap sync
 
 ```typescript
 echo(options: { value: string; }) => Promise<{ value: string; }>
+```
+
+| Param         | Type                            |
+| ------------- | ------------------------------- |
+| **`options`** | <code>{ value: string; }</code> |
+
+**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+
+--------------------
+
+
+### htmlstringToBase64(...)
+
+```typescript
+htmlstringToBase64(options: { value: string; }) => Promise<{ value: string; }>
 ```
 
 | Param         | Type                            |
