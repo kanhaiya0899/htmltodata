@@ -70,7 +70,7 @@ extension WebViewVC: PSHTMLViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             // your code here
             let image = self.htmlView.image()
-            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 580, height: 2600))
+            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 760, height: 2600))
             let imageData:Data = (resizeImage?.pngData())!
             let imageBase64String = imageData.base64EncodedString()
             self.delegatePassHTMLContent?.passHTMLContent(base64: imageBase64String)
