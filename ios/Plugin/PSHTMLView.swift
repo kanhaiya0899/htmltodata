@@ -136,9 +136,12 @@ extension PSHTMLView: WKNavigationDelegate {
 extension PSHTMLView: WKScriptMessageHandler {
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == PSHTMLViewScriptMessage.HandlerName.onContentHeightChange.rawValue {
-            guard let responseDict = message.body as? [String:Any], let height = responseDict["height"] as? Float, webViewHeightConstraint.constant != CGFloat(height) else {
+            guard let responseDict = message.body as? [String:Any], var height = responseDict["height"] as? Float, webViewHeightConstraint.constant != CGFloat(height) else {
                 return
             }
+            
+            height += 120
+            
             webViewHeightConstraint.constant = CGFloat(height)
             delegate?.heightChanged(height: CGFloat(height))
         }
