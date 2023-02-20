@@ -23,6 +23,8 @@ class WebViewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.frame.size.width = 300
+        
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
         
@@ -61,7 +63,7 @@ extension WebViewVC: PSHTMLViewDelegate {
     func didFinishLoad() {
         print("did dinish load")
         
-        scrollView.contentSize = CGSize(width: self.view.frame.width, height: htmlView.webViewHeightConstraint.constant)
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: htmlView.webViewHeightConstraint.constant)
         self.htmlView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         
         let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom)
@@ -70,8 +72,8 @@ extension WebViewVC: PSHTMLViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             // your code here
             let image = self.htmlView.image()
-            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 760, height: 2600))
-            let imageData:Data = (resizeImage?.pngData())!
+//            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 760, height: 2600))
+            let imageData:Data = (image?.pngData())!
             let imageBase64String = imageData.base64EncodedString()
             self.delegatePassHTMLContent?.passHTMLContent(base64: imageBase64String)
         }
