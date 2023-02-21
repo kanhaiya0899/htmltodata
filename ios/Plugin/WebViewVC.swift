@@ -23,18 +23,35 @@ class WebViewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.frame.size.width = 300
-        
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
         
-        self.htmlView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
-        htmlView.html = htmlContentString
-        htmlView.delegate = self
+        self.view.addSubview(scrollView)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            self.view.backgroundColor = .none
+        } else {
+            self.view.backgroundColor = .white
+        }
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        self.htmlView.frame = CGRect(x: 0, y: 0, width: 300, height: scrollView.contentSize.height)
         
         scrollView.addSubview(htmlView)
         
-        self.view.addSubview(scrollView)
+        htmlView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        htmlView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        htmlView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        htmlView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
+        self.htmlView.backgroundColor = .yellow
+        htmlView.html = htmlContentString
+        htmlView.delegate = self
     }
 }
 
@@ -61,7 +78,6 @@ extension WebViewVC: PSHTMLViewDelegate {
     }
     
     func didFinishLoad() {
-        print("did dinish load")
         
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: htmlView.webViewHeightConstraint.constant)
         self.htmlView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
@@ -72,8 +88,8 @@ extension WebViewVC: PSHTMLViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             // your code here
             let image = self.htmlView.image()
-//            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 760, height: 2600))
-            let imageData:Data = (image?.pngData())!
+            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 760, height: 2400))
+            let imageData:Data = (resizeImage?.pngData())!
             let imageBase64String = imageData.base64EncodedString()
             self.delegatePassHTMLContent?.passHTMLContent(base64: imageBase64String)
         }
