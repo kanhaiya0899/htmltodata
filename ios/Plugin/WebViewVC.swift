@@ -88,7 +88,7 @@ extension WebViewVC: PSHTMLViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             // your code here
             let image = self.htmlView.image()
-            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 760, height: 2400))
+            let resizeImage = image?.resizeImageTest(image: image!, targetSize: CGSize(width: 600, height: 2400))
             let imageData:Data = (resizeImage?.pngData())!
             let imageBase64String = imageData.base64EncodedString()
             self.delegatePassHTMLContent?.passHTMLContent(base64: imageBase64String)
@@ -113,7 +113,7 @@ extension UIImage {
         }
         
         // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+        let rect = CGRectMake(0, 0, /*newSize.width*/targetSize.width, newSize.height)
         
         // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
