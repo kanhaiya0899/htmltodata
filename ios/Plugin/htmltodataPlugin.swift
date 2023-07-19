@@ -29,6 +29,28 @@ public class htmltodataPlugin: CAPPlugin, PassHTMLContent {
         }
     }
 
+    @objc func printDefaultiOS(_ call: CAPPluginCall) {
+        let htmlContent = call.getString("value") ?? ""
+        
+        DispatchQueue.main.async {
+            let printInfo = UIPrintInfo(dictionary:nil)
+            printInfo.outputType = UIPrintInfo.OutputType.general
+            
+            let printController = UIPrintInteractionController.shared
+            let formatter = UIMarkupTextPrintFormatter.init(markupText: htmlContent)
+            formatter.startPage = 1
+            
+            printController.printFormatter = formatter
+            printController.printInfo = printInfo
+            
+            printController.present(animated: true) { (controller, completed, error) in
+                if !completed, let error = error {
+                    print("Error during printing: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
     func passHTMLContent(base64: String) {
         htmlContentCAPPluginCall.resolve([
             "value": implementation.echo(base64)

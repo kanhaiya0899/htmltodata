@@ -9,4 +9,9 @@ export interface htmltodataPlugin {
     }): Promise<{
         value: string;
     }>;
+    printDefaultiOS(options: {
+        value: string;
+    }): Promise<{
+        value: string;
+    }>;
 }

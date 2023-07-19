@@ -6,4 +6,5 @@
 CAP_PLUGIN(htmltodataPlugin, "htmltodata",
            CAP_PLUGIN_METHOD(echo, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(htmlstringToBase64, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(printDefaultiOS, CAPPluginReturnPromise);
 )

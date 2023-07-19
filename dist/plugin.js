@@ -13,6 +13,9 @@ var capacitorhtmltodata = (function (exports, core) {
         async htmlstringToBase64(options) {
             return options;
         }
+        async printDefaultiOS(options) {
+            return options;
+        }
     }
 
     var web = /*#__PURE__*/Object.freeze({

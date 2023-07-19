@@ -11,4 +11,9 @@ export declare class htmltodataWeb extends WebPlugin implements htmltodataPlugin
     }): Promise<{
         value: string;
     }>;
+    printDefaultiOS(options: {
+        value: string;
+    }): Promise<{
+        value: string;
+    }>;
 }

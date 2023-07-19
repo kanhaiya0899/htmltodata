@@ -7,5 +7,8 @@ export class htmltodataWeb extends WebPlugin {
     async htmlstringToBase64(options) {
         return options;
     }
+    async printDefaultiOS(options) {
+        return options;
+    }
 }
 //# sourceMappingURL=web.js.map

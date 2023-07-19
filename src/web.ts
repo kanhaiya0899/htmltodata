@@ -10,4 +10,8 @@ export class htmltodataWeb extends WebPlugin implements htmltodataPlugin {
   async htmlstringToBase64(options: { value: string }): Promise<{ value: string }> {
     return options;
   }
+  async printDefaultiOS(options: { value: string }): Promise<{ value: string }> {
+    return options;
+  }
+
 }

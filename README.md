@@ -15,6 +15,7 @@ npx cap sync
 
 * [`echo(...)`](#echo)
 * [`htmlstringToBase64(...)`](#htmlstringtobase64)
+* [`printDefaultiOS(...)`](#printdefaultios)
 
 </docgen-index>
 
@@ -40,6 +41,21 @@ echo(options: { value: string; }) => Promise<{ value: string; }>
 
 ```typescript
 htmlstringToBase64(options: { value: string; }) => Promise<{ value: string; }>
+```
+
+| Param         | Type                            |
+| ------------- | ------------------------------- |
+| **`options`** | <code>{ value: string; }</code> |
+
+**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+
+--------------------
+
+
+### printDefaultiOS(...)
+
+```typescript
+printDefaultiOS(options: { value: string; }) => Promise<{ value: string; }>
 ```
 
 | Param         | Type                            |
