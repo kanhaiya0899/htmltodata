@@ -46,6 +46,9 @@ public class htmltodataPlugin: CAPPlugin, PassHTMLContent {
             printController.present(animated: true) { (controller, completed, error) in
                 if !completed, let error = error {
                     print("Error during printing: \(error.localizedDescription)")
+                    call.reject("Error during printing: \(error.localizedDescription)")
+                } else if completed {
+                    call.resolve()
                 }
             }
         }
