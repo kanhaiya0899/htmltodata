@@ -43,12 +43,14 @@ public class htmltodataPlugin: CAPPlugin, PassHTMLContent {
             printController.printFormatter = formatter
             printController.printInfo = printInfo
             
-            printController.present(animated: true) { (controller, completed, error) in
-                if !completed, let error = error {
-                    print("Error during printing: \(error.localizedDescription)")
-                    call.reject("Error during printing: \(error.localizedDescription)")
-                } else if completed {
-                    call.resolve()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                printController.present(animated: true) { (controller, completed, error) in
+                    if !completed, let error = error {
+                        print("Error during printing: \(error.localizedDescription)")
+                        call.reject("Error during printing: \(error.localizedDescription)")
+                    } else if completed {
+                        call.resolve()
+                    }
                 }
             }
         }
