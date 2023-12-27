@@ -68,15 +68,11 @@ extension WebViewVC: PSHTMLViewDelegate {
     
     func didFinishLoad() {
         
-        if (UIDevice.current.userInterfaceIdiom == .pad) {
-            self.htmlView.frame = CGRect(x: 0, y: 0, width: 300, height: htmlView.webViewHeightConstraint.constant)
-        } else {
-            self.htmlView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: htmlView.webViewHeightConstraint.constant)
-        }
+        self.htmlView.frame = CGRect(x: 0, y: 0, width: 292, height: htmlView.webViewHeightConstraint.constant)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let image = self.htmlView.image()
-            let resizeImage = self.imageWithImage(sourceImage: image!, scaledToWidth: 600)
+            let resizeImage = self.imageWithImage(sourceImage: image!, scaledToWidth: self.htmlView.frame.width * 2)
             let imageData:Data = (resizeImage.pngData())!
             let imageBase64String = imageData.base64EncodedString()
             self.delegatePassHTMLContent?.passHTMLContent(base64: imageBase64String)
