@@ -70,12 +70,10 @@ extension WebViewVC: PSHTMLViewDelegate {
         
         self.htmlView.frame = CGRect(x: 0, y: 0, width: 292, height: htmlView.webViewHeightConstraint.constant)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let image = self.htmlView.image()
-            let resizeImage = self.imageWithImage(sourceImage: image!, scaledToWidth: self.htmlView.frame.width * 2)
-            let imageData:Data = (resizeImage.pngData())!
-            let imageBase64String = imageData.base64EncodedString()
-            self.delegatePassHTMLContent?.passHTMLContent(base64: imageBase64String)
+        processImage { base64String in
+            if let base64String = base64String {
+                self.delegatePassHTMLContent?.passHTMLContent(base64: base64String)
+            }
         }
     }
     
@@ -91,6 +89,21 @@ extension WebViewVC: PSHTMLViewDelegate {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage!
+    }
+    
+    func processImage(completion: @escaping (String?) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+            guard let image = self.htmlView.image() else {
+                completion(nil)
+                return
+            }
+
+            let resizeImage = self.imageWithImage(sourceImage: image, scaledToWidth: self.htmlView.frame.width * 2)
+            let imageData: Data = (resizeImage.pngData())!
+            let imageBase64String = imageData.base64EncodedString()
+
+            completion(imageBase64String)
+        }
     }
 }
 
